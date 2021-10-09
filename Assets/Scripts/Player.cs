@@ -26,5 +26,15 @@ public class Player : MonoBehaviour
         }
 
         m_rigidbody.velocity = moveAxis * moveSpeed;
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weapon.Fire();
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            weapon.BeginRecall();
+        }
     }
 }
