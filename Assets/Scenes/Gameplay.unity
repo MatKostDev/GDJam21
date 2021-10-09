@@ -743,7 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 389860199}
   fireSpeed: 350
-  recallSpeed: 350
+  recallSpeed: 400
   recallLayer:
     serializedVersion: 2
     m_Bits: 512
