@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 9c576b11d104a1a4cbdcec646c835a2e, type: 3}
-    totalSpriteSurfaceArea: 540416
+    totalSpriteSurfaceArea: 556800
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -130,6 +130,10 @@ SpriteAtlas:
   - {fileID: 1310646212423322558, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: -8081342682183779819, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: 4303581889099439291, guid: f1c09e883f87ac943979098d229abe21, type: 3}
+  - {fileID: 3587719231738583394, guid: 7c3a97982d13d0e4db08067d1946439b, type: 3}
+  - {fileID: 1423169650156079127, guid: 7c3a97982d13d0e4db08067d1946439b, type: 3}
+  - {fileID: 3479030954659979111, guid: 7c3a97982d13d0e4db08067d1946439b, type: 3}
+  - {fileID: 4877267519269716436, guid: 7c3a97982d13d0e4db08067d1946439b, type: 3}
   - {fileID: -8140256946614606142, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
   - {fileID: -4218822277342979940, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
   - {fileID: 6665859606570552298, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
@@ -397,6 +401,10 @@ SpriteAtlas:
   - Enemy Sprite - Running_0
   - Enemy Sprite - Running_3
   - Enemy Sprite - Running_2
+  - Enemy Projectile_3
+  - Enemy Projectile_2
+  - Enemy Projectile_1
+  - Enemy Projectile_0
   - Wizard Sprite - Idle With Crytal_0
   - Wizard Sprite - Idle With Crytal_1
   - Wizard Sprite - Idle With Crytal_2
