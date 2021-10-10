@@ -27,7 +27,7 @@ public class PlayerTracker : MonoBehaviour
 
     public Vector3 DirectionToPlayer
     {
-        get => s_playerTransform.position - transform.position;
+        get => Vector3.Normalize(s_playerTransform.position - transform.position);
     }
 
     void Awake()

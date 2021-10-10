@@ -1,16 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
+    [Header("Attack")]
     [SerializeField]
     EnemyProjectile projectilePrefab = null;
 
     [SerializeField]
-    float attackCooldown = 1.5f;
+    float attackCooldown = 2.5f;
+
+    [SerializeField]
+    float targetShotLeadAmount = 5f;
+
+    [SerializeField]
+    float firstShotWindupTime = 0.4f;
+
+    [SerializeField]
+    float delayBetweenShots = 0.2f;
+
+    [SerializeField]
+    float windDownDuration = 0.3f;
 
     float m_lastTimeAttacked;
+
+    void Start()
+    {
+        m_lastTimeAttacked = -attackCooldown * 0.5f;
+    }
 
     protected override void Update()
     {
@@ -54,17 +73,51 @@ public class RangedEnemy : Enemy
     {
         m_lastTimeAttacked = Time.time;
 
-        const float startDelay = 0.2f;
-        yield return new WaitForSeconds(startDelay);
-
         StopInstantly();
         m_isAttacking = true;
 
-        var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(firstShotWindupTime);
 
-        newProjectileObject.GetComponent<EnemyProjectile>().OnFired(m_playerTracker.DirectionToPlayer);
+        //set up general position and directions
+        Vector3 targetPosition = m_playerTracker.PlayerPosition;
+        targetPosition.z = 0f;
 
-        yield return new WaitForSeconds(0.15f);
+        Vector3 targetDirection = m_playerTracker.DirectionToPlayer;
+
+        Vector3 targetRightDirection = new Vector3(targetDirection.y, -targetDirection.x, 0f).normalized;
+
+        {
+            //fire to the right of the target
+            Vector3 firstShotTargetPos = targetPosition + (targetShotLeadAmount * targetRightDirection);
+            Vector3 firstShotDirection = Vector3.Normalize(firstShotTargetPos - transform.position);
+
+            var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+            newProjectileObject.GetComponent<EnemyProjectile>().OnFired(firstShotDirection);
+        }
+
+        yield return new WaitForSeconds(delayBetweenShots);
+
+        {
+            //fire at the target
+            var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+            newProjectileObject.GetComponent<EnemyProjectile>().OnFired(targetDirection);
+        }
+
+        yield return new WaitForSeconds(delayBetweenShots);
+
+        {
+            //fire to the left of the target
+            Vector3 thirdShotTargetPos = targetPosition + (targetShotLeadAmount * -targetRightDirection);
+            Vector3 thirdShotDirection = Vector3.Normalize(thirdShotTargetPos - transform.position);
+
+            var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+            newProjectileObject.GetComponent<EnemyProjectile>().OnFired(thirdShotDirection);
+        }
+
+        yield return new WaitForSeconds(windDownDuration);
 
         m_isAttacking = false;
     }
