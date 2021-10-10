@@ -686,6 +686,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   weapon: {fileID: 1037563483}
+  idleEmptyAnim: {fileID: 7400000, guid: 0a155bd5962d58640adf2d437e7cde82, type: 2}
+  idleCrystalAnim: {fileID: 7400000, guid: 53ef49288741de64d9352a1d3228b6f0, type: 2}
+  fireAnim: {fileID: 7400000, guid: 94a45859832b3984dbe8da8859cc27e2, type: 2}
 --- !u!50 &310406388
 Rigidbody2D:
   serializedVersion: 4
@@ -1068,6 +1071,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 150
   weapon: {fileID: 517567419}
+  idleEmptyAnim: {fileID: 0}
+  idleCrystalAnim: {fileID: 0}
+  fireAnim: {fileID: 0}
 --- !u!1 &506006382
 GameObject:
   m_ObjectHideFlags: 0
@@ -6040,7 +6046,7 @@ Transform:
   m_GameObject: {fileID: 1037563480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 966.66, y: 545.3104, z: 0}
-  m_LocalScale: {x: 3.1915, y: 3.1915, z: 3.1915}
+  m_LocalScale: {x: 1.6288139, y: 1.6288139, z: 1.6288139}
   m_Children:
   - {fileID: 1892733812}
   m_Father: {fileID: 113016777}
@@ -6122,7 +6128,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 28d47cbaafc98254f8d4f6184dff22cd, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -6315,6 +6321,7 @@ GameObject:
   - component: {fileID: 1277807289}
   - component: {fileID: 1277807287}
   - component: {fileID: 1277807286}
+  - component: {fileID: 1277807292}
   m_Layer: 12
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -6385,6 +6392,10 @@ MonoBehaviour:
   chaseSpeed: 2.7
   wanderSpeed: 1.5
   stoppingDistance: 0
+  chaseAnim: {fileID: 7400000, guid: 7bda797061032da4b923d39d699a7f8a, type: 2}
+  idleAnim: {fileID: 7400000, guid: 4bf02dfa414838f4196ea01d2b4d585b, type: 2}
+  spottedAnim: {fileID: 7400000, guid: b62a921ec3f9a1148a7a10cbfa17457f, type: 2}
+  snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
 --- !u!212 &1277807289
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6426,7 +6437,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: -1971483635418857282, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
-  m_Color: {r: 1, g: 0.4575472, b: 0.9125077, a: 1}
+  m_Color: {r: 1, g: 0.6273585, b: 0.9405933, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6462,7 +6473,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f30d29a95d396428962e11984d7b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 7
+  detectionRange: 5
+--- !u!95 &1277807292
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277807285}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89606a764d6b0964aa3f63eb17b728f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1652105549
 GameObject:
   m_ObjectHideFlags: 0
@@ -6477,6 +6507,7 @@ GameObject:
   - component: {fileID: 1652105552}
   - component: {fileID: 1652105551}
   - component: {fileID: 1652105550}
+  - component: {fileID: 1652105556}
   m_Layer: 12
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -6495,7 +6526,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.28
   m_Speed: 5
-  m_Acceleration: 3
+  m_Acceleration: 9
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -6609,8 +6640,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseSpeed: 1.2
-  wanderSpeed: 0.7
+  wanderSpeed: 1
   stoppingDistance: 5
+  chaseAnim: {fileID: 7400000, guid: 7bda797061032da4b923d39d699a7f8a, type: 2}
+  idleAnim: {fileID: 7400000, guid: 4bf02dfa414838f4196ea01d2b4d585b, type: 2}
+  spottedAnim: {fileID: 7400000, guid: b62a921ec3f9a1148a7a10cbfa17457f, type: 2}
+  snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
   projectilePrefab: {fileID: 4494687190976697057, guid: a0442e84704c3914fac9e9d3e1a3bc66, type: 3}
   attackCooldown: 3.6
   targetShotLeadAmount: 2.5
@@ -6631,6 +6666,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1652105556
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652105549}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89606a764d6b0964aa3f63eb17b728f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0

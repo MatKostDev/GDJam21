@@ -61,7 +61,7 @@ public class RangedEnemy : Enemy
 
     void BeginAttack()
     {
-        if (m_lastTimeAttacked + attackCooldown > Time.time)
+        if (m_lastTimeAttacked + attackCooldown > Time.time || m_isSpotting)
         {
             return;
         }

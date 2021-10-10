@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerTracker : MonoBehaviour
 {
+    public UnityAction onTargetSpotted;
+
     [SerializeField]
     float detectionRange = 10f;
 
@@ -49,6 +52,7 @@ public class PlayerTracker : MonoBehaviour
             || (transform.position - s_playerWeaponTransform.position).sqrMagnitude < sqrDetectionRange)
         {
             m_isTracking = true;
+            onTargetSpotted?.Invoke();
         }
     }
 }
