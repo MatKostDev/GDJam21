@@ -32,8 +32,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     AnimationClip snoozeAnim;
 
-    //[SerializeField]
-    //AnimationClip attackAnim;
+    [SerializeField]
+    AnimationClip deathAnim;
 
     protected PlayerTracker m_playerTracker;
 
@@ -209,10 +209,12 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
+        m_animator.Play(deathAnim.name);
+
         StatTracker.IncrementEnemiesKilled();
 
         m_isDead = true;
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 2f);
     }
 
     protected void StopInstantly()

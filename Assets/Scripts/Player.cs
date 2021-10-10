@@ -101,6 +101,8 @@ public class Player : MonoBehaviour
 
         StatTracker.IncrementPlayerDeath();
 
+        StopAllCoroutines();
+
         Invoke(nameof(RestartLevel), 2f);
     }
 

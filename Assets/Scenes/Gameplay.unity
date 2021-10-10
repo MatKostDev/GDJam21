@@ -309,7 +309,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5.5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -333,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65664718}
   m_LocalRotation: {x: 0, y: 0.00000003154298, z: 0, w: 1}
-  m_LocalPosition: {x: 965.8546, y: 545.3104, z: -10}
+  m_LocalPosition: {x: 965.8547, y: 545.3104, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5312,7 +5312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630025696}
   m_LocalRotation: {x: 0, y: 0.00000003154298, z: 0, w: 1}
-  m_LocalPosition: {x: 965.8546, y: 545.3104, z: -10}
+  m_LocalPosition: {x: 965.8547, y: 545.3104, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 113805438}
@@ -5508,7 +5508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 310406384}
-  fireSpeed: 6
+  fireSpeed: 9
   recallSpeed: 25
   recallLayer:
     serializedVersion: 2
@@ -5870,7 +5870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c6cc1b472ff704b99f7668af61eec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseSpeed: 2.7
+  chaseSpeed: 2.3
   wanderSpeed: 1.5
   stoppingDistance: 0
   wanderAnim: {fileID: 7400000, guid: 1d9859f1d379d9d42b44886e553c9caf, type: 2}
@@ -5878,6 +5878,7 @@ MonoBehaviour:
   idleAnim: {fileID: 7400000, guid: 4bf02dfa414838f4196ea01d2b4d585b, type: 2}
   spottedAnim: {fileID: 7400000, guid: b62a921ec3f9a1148a7a10cbfa17457f, type: 2}
   snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
+  deathAnim: {fileID: 7400000, guid: 5827e35067018bb42a774e31b3c6e0f7, type: 2}
 --- !u!212 &1277807289
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6205,11 +6206,13 @@ MonoBehaviour:
   idleAnim: {fileID: 7400000, guid: 4bf02dfa414838f4196ea01d2b4d585b, type: 2}
   spottedAnim: {fileID: 7400000, guid: b62a921ec3f9a1148a7a10cbfa17457f, type: 2}
   snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
+  deathAnim: {fileID: 7400000, guid: 5827e35067018bb42a774e31b3c6e0f7, type: 2}
   projectilePrefab: {fileID: 4494687190976697057, guid: a0442e84704c3914fac9e9d3e1a3bc66, type: 3}
+  attackAnim: {fileID: 7400000, guid: a78d7cc06b15c7847986fc90a3859ccd, type: 2}
   attackCooldown: 3.6
   targetShotLeadAmount: 2.5
-  firstShotWindupTime: 0.35
-  delayBetweenShots: 0.2
+  firstShotWindupTime: 0.45
+  delayBetweenShots: 0.25
   windDownDuration: 0.4
 --- !u!4 &1652105555
 Transform:

@@ -10,6 +10,9 @@ public class RangedEnemy : Enemy
     EnemyProjectile projectilePrefab = null;
 
     [SerializeField]
+    AnimationClip attackAnim;
+
+    [SerializeField]
     float attackCooldown = 2.5f;
 
     [SerializeField]
@@ -76,6 +79,8 @@ public class RangedEnemy : Enemy
         StopInstantly();
         m_isAttacking = true;
 
+        m_animator.Play(attackAnim.name);
+
         yield return new WaitForSeconds(firstShotWindupTime);
 
         //set up general position and directions
@@ -99,6 +104,8 @@ public class RangedEnemy : Enemy
         yield return new WaitForSeconds(delayBetweenShots);
 
         {
+            m_animator.Play(attackAnim.name, -1, 0.5f);
+
             //fire at the target
             var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
@@ -108,6 +115,8 @@ public class RangedEnemy : Enemy
         yield return new WaitForSeconds(delayBetweenShots);
 
         {
+            m_animator.Play(attackAnim.name, -1, 0.5f);
+
             //fire to the left of the target
             Vector3 thirdShotTargetPos = targetPosition + (targetShotLeadAmount * -targetRightDirection);
             Vector3 thirdShotDirection = Vector3.Normalize(thirdShotTargetPos - transform.position);
