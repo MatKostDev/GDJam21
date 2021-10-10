@@ -28,11 +28,18 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     BoxCollider2D enemyCollider = null;
 
-    const float NORMAL_COLLIDER_WIDTH  = 0.14f;
-    const float NORMAL_COLLIDER_HEIGHT = 0.04f;
+    [Header("Animations")]
+    [SerializeField]
+    AnimationClip idleAnim;
 
-    const float RECALLING_COLLIDER_WIDTH  = 0.14f;
-    const float RECALLING_COLLIDER_HEIGHT = 0.2f;
+    [SerializeField]
+    AnimationClip shatterAnim;
+
+    const float NORMAL_COLLIDER_WIDTH  = 0.05f;
+    const float NORMAL_COLLIDER_HEIGHT = 0.25f;
+
+    const float RECALLING_COLLIDER_WIDTH  = 0.3f;
+    const float RECALLING_COLLIDER_HEIGHT = 0.25f;
 
     bool m_isConnectedToPlayer = true;
     bool m_isRecalling         = false;
@@ -42,6 +49,7 @@ public class PlayerWeapon : MonoBehaviour
 
     Rigidbody2D    m_rigidBody;
     SpriteRenderer m_renderer;
+    Animator       m_animator;
 
     int m_initialLayerNum;
     int m_recallLayerNum;
@@ -75,6 +83,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         m_rigidBody  = GetComponent<Rigidbody2D>();
         m_renderer   = GetComponent<SpriteRenderer>();
+        m_animator   = GetComponent<Animator>();
         m_mainCamera = Camera.main;
 
         m_initialLayerNum = gameObject.layer;
@@ -85,11 +94,17 @@ public class PlayerWeapon : MonoBehaviour
 
     void Update()
     {
+        if (Player.IsDead)
+        {
+            m_rigidBody.velocity = Vector2.zero;
+            return;
+        }
+
         m_renderer.enabled = true;
 
         if (m_isBroken)
         {
-            if ((playerTransform.position - transform.position).magnitude < restDistanceFromPlayer)
+            if ((playerTransform.position - transform.position).magnitude < 0.7f)
             {
                 OnRepaired();
             }
@@ -131,7 +146,7 @@ public class PlayerWeapon : MonoBehaviour
                 FaceDirection(lookTarget - transform.position);
 
                 const float smallAmountOfTime = 0.3f;
-                if ((playerTransform.position - transform.position).magnitude < restDistanceFromPlayer
+                if ((playerTransform.position - transform.position).magnitude < 0.5f
                     && Time.time > m_lastTimeFired + smallAmountOfTime)
                 {
                     OnPickedUp();
@@ -184,6 +199,8 @@ public class PlayerWeapon : MonoBehaviour
         m_isConnectedToPlayer = false;
 
         m_rigidBody.velocity = Vector2.zero;
+
+        m_animator.Play(shatterAnim.name);
     }
 
     IEnumerator RecallRoutine()
@@ -209,7 +226,7 @@ public class PlayerWeapon : MonoBehaviour
             yield return null;
         }
 
-        while ((playerTransform.position - transform.position).magnitude > restDistanceFromPlayer)
+        while ((playerTransform.position - transform.position).magnitude > 0.5f)
         {
             Vector3 recallDirection = Vector3.Normalize(playerTransform.position - transform.position);
 
@@ -239,11 +256,13 @@ public class PlayerWeapon : MonoBehaviour
     {
         m_isBroken = false;
         OnPickedUp();
+
+        m_animator.Play(idleAnim.name);
     }
 
     void FaceDirection(Vector3 a_direction)
     {
         transform.right = a_direction;
-        //transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
+        //transform.Rotate(0f, 0f, -90f); //because sprite faces up by default
     }
 }

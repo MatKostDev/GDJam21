@@ -18,6 +18,9 @@ public abstract class Enemy : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField]
+    AnimationClip wanderAnim;
+
+    [SerializeField]
     AnimationClip chaseAnim;
 
     [SerializeField]
@@ -131,7 +134,7 @@ public abstract class Enemy : MonoBehaviour
             }
             else
             {
-                m_animator.Play(chaseAnim.name); //TODO: change to wander anim
+                m_animator.Play(wanderAnim.name);
                 m_isSnoozin = false;
             }
 

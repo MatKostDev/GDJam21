@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     AnimationClip fireAnim;
 
+    [SerializeField]
+    AnimationClip deathAnim;
+
     Rigidbody2D m_rigidbody;
     Animator    m_animator;
 
@@ -89,6 +92,8 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        m_animator.Play(deathAnim.name);
 
         s_isDead = true;
 
