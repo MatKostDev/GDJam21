@@ -49,6 +49,11 @@ public class PlayerWeapon : MonoBehaviour
         get => m_isRecalling;
     }
 
+    public bool IsConnectedToPlayer
+    {
+        get => m_isConnectedToPlayer;
+    }
+
     public Vector3 LookDirection
     {
         get => transform.right;

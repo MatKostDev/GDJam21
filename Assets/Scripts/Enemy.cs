@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
     float m_randomDestinationCooldown = 3f;
     float m_randomDestinationTimer;
 
-    void Awake()
+    protected virtual void Awake()
     {
         m_playerTracker = GetComponent<PlayerTracker>();
         m_agent         = GetComponent<NavMeshAgent>();
@@ -34,8 +34,16 @@ public abstract class Enemy : MonoBehaviour
         m_randomDestinationTimer = Random.Range(m_randomDestinationCooldown * 0.5f, m_randomDestinationCooldown);
     }
 
-    void Update()
+    protected virtual void Update()
     {
+        if (Player.IsDead)
+        {
+            m_agent.ResetPath();
+            m_agent.acceleration = 1000f;
+            m_agent.speed = 0f;
+            return;
+        }
+
         if (m_playerTracker.IsTracking)
         {
             if (NavMesh.SamplePosition(m_playerTracker.PlayerPosition, out _, 100f, NavMesh.AllAreas))
@@ -82,6 +90,11 @@ public abstract class Enemy : MonoBehaviour
             if (!weapon)
             {
                 weapon = a_other.GetComponentInParent<PlayerWeapon>();
+            }
+
+            if (weapon.IsConnectedToPlayer)
+            {
+                return;
             }
 
             Vector3 weaponForward   = weapon.LookDirection;
