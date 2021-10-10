@@ -58,7 +58,7 @@ MonoBehaviour:
   spottedAnim: {fileID: 7400000, guid: b62a921ec3f9a1148a7a10cbfa17457f, type: 2}
   snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
   deathAnim: {fileID: 7400000, guid: 5827e35067018bb42a774e31b3c6e0f7, type: 2}
-  dieSound: {fileID: 8300000, guid: 9e0a4a10836895241a85701b3c7e276f, type: 3}
+  dieSound: {fileID: 8300000, guid: d99e1f40cc56bfd49974ca8d50f674b9, type: 3}
   projectilePrefab: {fileID: 4494687190976697057, guid: a0442e84704c3914fac9e9d3e1a3bc66, type: 3}
   attackAnim: {fileID: 7400000, guid: a78d7cc06b15c7847986fc90a3859ccd, type: 2}
   attackCooldown: 3.6

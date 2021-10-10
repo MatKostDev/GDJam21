@@ -221,6 +221,8 @@ public abstract class Enemy : MonoBehaviour
         StatTracker.IncrementEnemiesKilled();
 
         m_isDead = true;
+
+        StopAllCoroutines();
         Destroy(gameObject, 2f);
     }
 
