@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166720eb0e70944409abb7f12c5581d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
   weapon: {fileID: 1037563483}
   idleEmptyAnim: {fileID: 7400000, guid: 0a155bd5962d58640adf2d437e7cde82, type: 2}
   idleCrystalAnim: {fileID: 7400000, guid: 53ef49288741de64d9352a1d3228b6f0, type: 2}

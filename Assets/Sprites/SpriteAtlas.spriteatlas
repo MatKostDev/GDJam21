@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 9c576b11d104a1a4cbdcec646c835a2e, type: 3}
-    totalSpriteSurfaceArea: 462592
+    totalSpriteSurfaceArea: 503552
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -112,6 +112,16 @@ SpriteAtlas:
   - {fileID: 8975773634604458221, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
   - {fileID: 3528707403672769368, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
   - {fileID: -6841818728413976905, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
+  - {fileID: 1479544043801469651, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -6577226571599536343, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -6061703916608147382, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 8275713172730851822, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -3789052660988003117, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -4119334708683220384, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 7416660470128251321, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 2584664835327251057, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 3798758021953530344, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 7033476032804150626, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
   - {fileID: 6671866344960097210, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: 1310646212423322558, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: -8081342682183779819, guid: f1c09e883f87ac943979098d229abe21, type: 3}
@@ -360,6 +370,16 @@ SpriteAtlas:
   - Enemy Sprite - Idle_1
   - Enemy Sprite - Idle_2
   - Enemy Sprite - Idle_3
+  - Target_5
+  - Target_4
+  - Target_7
+  - Target_6
+  - Target_1
+  - Target_0
+  - Target_3
+  - Target_2
+  - Target_9
+  - Target_8
   - Enemy Sprite - Running_1
   - Enemy Sprite - Running_0
   - Enemy Sprite - Running_3
