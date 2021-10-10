@@ -130,11 +130,11 @@ public class Player : MonoBehaviour
 
         weapon.IsPreFiring = true;
 
-        yield return new WaitForSeconds(0.3f);
+        //yield return new WaitForSeconds(0.3f);
 
         weapon.Fire();
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
 
         m_animator.Play(idleEmptyAnim.name);
 
