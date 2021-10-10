@@ -37,4 +37,9 @@ public class Player : MonoBehaviour
             weapon.BeginRecall();
         }
     }
+
+    public void TakeDamage()
+    {
+
+    }
 }
