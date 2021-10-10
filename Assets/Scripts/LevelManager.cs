@@ -8,29 +8,26 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class LevelManager : MonoBehaviour { 
-	public List<Scene> levels;
-	public int startingLevelIndex = 0;
+public class LevelManager : MonoBehaviour
+{
+    public Scene winScene;
 
-	public GameObject pauseMenu;
+    GameObject pauseMenu;
 	
 	public UnityEvent onPreLevelLoadEvent;
 	public UnityEvent onPostLevelLoadEvent;
 	public UnityEvent onLevelStartEvent;
 
-	private int m_currentLevelIndex;
-	private GameObject m_currentLevel;
+	LevelTracker m_levelTracker;
 
 	public int NumLevelsPassed { get; private set; } = 0;
 
 	private void Start() 
     {
-		LoadLevelPrefabs("Prefabs/Levels");
-		
-		// Call GenerateNewLevel() with reset to avoid having to rewrite the function in Start()
-		m_currentLevelIndex = startingLevelIndex;
-		//GenerateNewLevel(reset: true);
-	}
+		pauseMenu = GameObject.Find("PauseMenu");
+
+        m_levelTracker = FindObjectOfType<LevelTracker>();
+    }
 
 	private void OnDisable() 
     {
@@ -54,7 +51,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private void GenerateNewLevel(bool reset) 
+    public void LoadNextLevel(bool reset = false) 
     {
 		if (!reset)
         {
@@ -65,11 +62,16 @@ public class LevelManager : MonoBehaviour {
 		
 		//Destroy(m_currentLevel);
 
-		//if (reset) {
+		//if (reset)
+		//{
 		//	m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
-		//} else {
+		//}
+		//else
+		//{
 		//	if (levels.Count <= 1)
+        //  {
 		//		m_currentLevelIndex = 0;
+		//  }
 		//	else 
 		//	{
 		//		int newLevelIndex = m_currentLevelIndex;
@@ -82,27 +84,12 @@ public class LevelManager : MonoBehaviour {
 		//	m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
 		//}
 
-        SceneManager.LoadScene(levels[NumLevelsPassed].buildIndex, LoadSceneMode.Single);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
 
 		onPostLevelLoadEvent?.Invoke();
 		onPostLevelLoadEvent?.RemoveAllListeners();
 	}
 
-	private void PlayerInfectedEvent() 
-    {
-		GenerateNewLevel(reset: true);
-	}
-	
-	private void PlayerSurvivedEvent() 
-    {
-		GenerateNewLevel(reset: false);
-	}
-
-	public void RetryButtonClickedEvent() 
-    {
-		StartCoroutine(LoadSceneAsync("Gameplay"));
-	}
-	
 	public void MenuButtonClickedEvent() 
     { 
 		StartCoroutine(LoadSceneAsync("Menu"));
@@ -123,14 +110,5 @@ public class LevelManager : MonoBehaviour {
 		{
 			yield return null;
 		}
-	}
-
-	private void LoadLevelPrefabs(string path) 
-    {
-		//var res = Resources.LoadAll<GameObject>(path);
-
-		//foreach (var obj in res) {
-		//	levels.Add(obj);
-		//}
 	}
 }
