@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (s_isDead)
+        if (s_isDead || Time.timeScale == 0f)
         {
             return;
         }
@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
         s_isDead = true;
 
         m_rigidbody.velocity = Vector2.zero;
+
+        StatTracker.IncrementPlayerDeath();
 
         Invoke(nameof(RestartLevel), 2f);
     }
