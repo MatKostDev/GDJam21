@@ -22,6 +22,15 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] 
     float restDistanceFromPlayer = 2f;
 
+    [SerializeField]
+    BoxCollider2D enemyCollider = null;
+
+    const float NORMAL_COLLIDER_WIDTH  = 0.14f;
+    const float NORMAL_COLLIDER_HEIGHT = 0.04f;
+
+    const float RECALLING_COLLIDER_WIDTH  = 0.14f;
+    const float RECALLING_COLLIDER_HEIGHT = 0.2f;
+
     bool m_isConnectedToPlayer = true;
     bool m_isRecalling         = false;
     bool m_isBroken            = false;
@@ -52,6 +61,8 @@ public class PlayerWeapon : MonoBehaviour
 
         m_initialLayerNum = gameObject.layer;
         m_recallLayerNum  = Mathf.RoundToInt(Mathf.Log(recallLayer.value, 2)); //convert layer mask to int
+
+        enemyCollider.size = new Vector2(NORMAL_COLLIDER_WIDTH, NORMAL_COLLIDER_HEIGHT);
     }
 
     void Update()
@@ -145,6 +156,8 @@ public class PlayerWeapon : MonoBehaviour
         m_isRecalling    = true;
         gameObject.layer = m_recallLayerNum;
 
+        enemyCollider.size = new Vector2(RECALLING_COLLIDER_WIDTH, RECALLING_COLLIDER_HEIGHT);
+
         m_rigidBody.velocity = Vector2.zero;
 
         Vector3 startRightDirection = transform.right;
@@ -173,6 +186,8 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         m_isRecalling = false;
+
+        enemyCollider.size = new Vector2(NORMAL_COLLIDER_WIDTH, NORMAL_COLLIDER_HEIGHT);
         OnPickedUp();
     }
 

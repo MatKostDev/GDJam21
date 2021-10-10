@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Environment
   - Player
-  - PlayerWeapon
+  - PlayerWeaponEnvironment
   - PlayerWeaponRecalling
-  - 
+  - PlayerWeaponEnemy
   - 
   - Enemy
   - 

@@ -79,11 +79,15 @@ public abstract class Enemy : MonoBehaviour
         else if (a_other.CompareTag("PlayerWeapon"))
         {
             PlayerWeapon weapon = a_other.GetComponent<PlayerWeapon>();
+            if (!weapon)
+            {
+                weapon = a_other.GetComponentInParent<PlayerWeapon>();
+            }
 
-            Vector3 moveDirection   = m_agent.velocity.normalized;
+            Vector3 weaponForward   = weapon.LookDirection;
             Vector3 weaponDirection = Vector3.Normalize(weapon.transform.position - transform.position);
 
-            if (weapon.IsRecalling || Vector3.Dot(moveDirection, weaponDirection) < 0.1f)
+            if (weapon.IsRecalling || Vector3.Dot(weaponForward, weaponDirection) > 0f)
             {
                 TakeDamage();
             }
