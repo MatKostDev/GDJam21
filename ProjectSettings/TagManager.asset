@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerWeapon
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX

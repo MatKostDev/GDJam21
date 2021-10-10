@@ -183,14 +183,16 @@ public class PlayerWeapon : MonoBehaviour
         return true;
     }
 
-    public void BeginRecall()
+    public bool BeginRecall()
     {
         if (m_isRecalling || m_isConnectedToPlayer || m_isBroken)
         {
-            return;
+            return false;
         }
 
         StartCoroutine(RecallRoutine());
+
+        return true;
     }
 
     public void OnBroken()
