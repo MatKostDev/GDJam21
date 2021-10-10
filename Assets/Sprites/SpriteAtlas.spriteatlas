@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 9c576b11d104a1a4cbdcec646c835a2e, type: 3}
-    totalSpriteSurfaceArea: 462592
+    totalSpriteSurfaceArea: 540416
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -97,6 +97,10 @@ SpriteAtlas:
   - {fileID: 8775262610487665959, guid: 441cbd53f35eff24299d50d429980692, type: 3}
   - {fileID: -2490980981222792000, guid: 441cbd53f35eff24299d50d429980692, type: 3}
   - {fileID: -17758346022009389, guid: 441cbd53f35eff24299d50d429980692, type: 3}
+  - {fileID: -3712116384139744530, guid: 64f46a44849cb6b40a7c28733e47e529, type: 3}
+  - {fileID: -1903323397713422206, guid: 64f46a44849cb6b40a7c28733e47e529, type: 3}
+  - {fileID: -7327818076814472044, guid: 64f46a44849cb6b40a7c28733e47e529, type: 3}
+  - {fileID: -7383188135789882117, guid: 64f46a44849cb6b40a7c28733e47e529, type: 3}
   - {fileID: -5051849874648576103, guid: 2d3fc4f461151194c9b951c71dc504d2, type: 3}
   - {fileID: 5152841581606697534, guid: 2d3fc4f461151194c9b951c71dc504d2, type: 3}
   - {fileID: -7320290074458762668, guid: 2d3fc4f461151194c9b951c71dc504d2, type: 3}
@@ -112,6 +116,16 @@ SpriteAtlas:
   - {fileID: 8975773634604458221, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
   - {fileID: 3528707403672769368, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
   - {fileID: -6841818728413976905, guid: 042ec2c7d0ec743489e144083b4da145, type: 3}
+  - {fileID: 1479544043801469651, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -6577226571599536343, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -6061703916608147382, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 8275713172730851822, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -3789052660988003117, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: -4119334708683220384, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 7416660470128251321, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 2584664835327251057, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 3798758021953530344, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
+  - {fileID: 7033476032804150626, guid: cf9b5158f993b114db0aa5ad8f659042, type: 3}
   - {fileID: 6671866344960097210, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: 1310646212423322558, guid: f1c09e883f87ac943979098d229abe21, type: 3}
   - {fileID: -8081342682183779819, guid: f1c09e883f87ac943979098d229abe21, type: 3}
@@ -121,6 +135,11 @@ SpriteAtlas:
   - {fileID: 6665859606570552298, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
   - {fileID: -4746212088286689748, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
   - {fileID: -8358835426841573920, guid: c4791ca8bea32ba4598b3f689ac8dcde, type: 3}
+  - {fileID: 5053295998148413215, guid: 29baa3d828e30694ba5cc5ffe2220d97, type: 3}
+  - {fileID: 3455351097096148600, guid: 29baa3d828e30694ba5cc5ffe2220d97, type: 3}
+  - {fileID: 6289536491369455858, guid: 29baa3d828e30694ba5cc5ffe2220d97, type: 3}
+  - {fileID: -7176823446006512019, guid: 29baa3d828e30694ba5cc5ffe2220d97, type: 3}
+  - {fileID: 4260855920764549157, guid: 29baa3d828e30694ba5cc5ffe2220d97, type: 3}
   - {fileID: 4575707185201799715, guid: 0fac21b987ccecc4a8953e5467b43312, type: 3}
   - {fileID: -5568736394343730806, guid: 0fac21b987ccecc4a8953e5467b43312, type: 3}
   - {fileID: -1214735689170933594, guid: 0fac21b987ccecc4a8953e5467b43312, type: 3}
@@ -345,6 +364,10 @@ SpriteAtlas:
   - Enemy Sprite - Snooze_5
   - Enemy Sprite - Snooze_6
   - Enemy Sprite - Snooze_7
+  - WaterTiles_2
+  - WaterTiles_3
+  - WaterTiles_0
+  - WaterTiles_1
   - Crystal - Shatter_4
   - Crystal - Shatter_0
   - Crystal - Shatter_1
@@ -360,6 +383,16 @@ SpriteAtlas:
   - Enemy Sprite - Idle_1
   - Enemy Sprite - Idle_2
   - Enemy Sprite - Idle_3
+  - Target_5
+  - Target_4
+  - Target_7
+  - Target_6
+  - Target_1
+  - Target_0
+  - Target_3
+  - Target_2
+  - Target_9
+  - Target_8
   - Enemy Sprite - Running_1
   - Enemy Sprite - Running_0
   - Enemy Sprite - Running_3
@@ -369,6 +402,11 @@ SpriteAtlas:
   - Wizard Sprite - Idle With Crytal_2
   - Wizard Sprite - Idle With Crytal_3
   - Wizard Sprite - Idle With Crytal_4
+  - Enemy Sprite - Fire_2
+  - Enemy Sprite - Fire_3
+  - Enemy Sprite - Fire_0
+  - Enemy Sprite - Fire_1
+  - Enemy Sprite - Fire_4
   - WallPieces_6
   - WallPieces_5
   - WallPieces_4
