@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
@@ -13,9 +14,9 @@ TagManager:
   - UI
   - Environment
   - Player
-  - PlayerWeapon
-  - PlayerWeaponIgnoreEnvironment
-  - 
+  - PlayerWeaponEnvironment
+  - PlayerWeaponRecalling
+  - PlayerWeaponEnemy
   - 
   - Enemy
   - 

@@ -16,11 +16,24 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     LayerMask recallLayer;
 
+    [SerializeField]
+    float recallDelay = 0.5f;
+
     [SerializeField] 
     float restDistanceFromPlayer = 2f;
 
+    [SerializeField]
+    BoxCollider2D enemyCollider = null;
+
+    const float NORMAL_COLLIDER_WIDTH  = 0.14f;
+    const float NORMAL_COLLIDER_HEIGHT = 0.04f;
+
+    const float RECALLING_COLLIDER_WIDTH  = 0.14f;
+    const float RECALLING_COLLIDER_HEIGHT = 0.2f;
+
     bool m_isConnectedToPlayer = true;
     bool m_isRecalling         = false;
+    bool m_isBroken            = false;
 
     Rigidbody2D m_rigidBody;
 
@@ -29,25 +42,53 @@ public class PlayerWeapon : MonoBehaviour
 
     float m_lastTimeFired = Mathf.NegativeInfinity;
 
+    Camera m_mainCamera;
+
+    public bool IsRecalling
+    {
+        get => m_isRecalling;
+    }
+
+    public Vector3 LookDirection
+    {
+        get => transform.right;
+    }
+
     void Awake()
     {
-        m_rigidBody = GetComponent<Rigidbody2D>();
+        m_rigidBody  = GetComponent<Rigidbody2D>();
+        m_mainCamera = Camera.main;
 
         m_initialLayerNum = gameObject.layer;
         m_recallLayerNum  = Mathf.RoundToInt(Mathf.Log(recallLayer.value, 2)); //convert layer mask to int
+
+        enemyCollider.size = new Vector2(NORMAL_COLLIDER_WIDTH, NORMAL_COLLIDER_HEIGHT);
     }
 
     void Update()
     {
+        if (m_isBroken)
+        {
+            if ((playerTransform.position - transform.position).magnitude < restDistanceFromPlayer)
+            {
+                OnRepaired();
+            }
+
+            return;
+        }
+
         if (m_isConnectedToPlayer)
         {
-            Vector3 newDirection = Vector3.Normalize(Input.mousePosition - playerTransform.position);
+            Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+
+            Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
 
             transform.position = playerTransform.position + (newDirection * restDistanceFromPlayer);
 
             Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
-            transform.right = lookTarget - transform.position;
-            transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
+
+            FaceDirection(lookTarget - transform.position);
         }
         else if (!m_isRecalling)
         {
@@ -57,8 +98,8 @@ public class PlayerWeapon : MonoBehaviour
                 moveDirection.z = 0f;
 
                 Vector3 lookTarget = transform.position + (moveDirection * 100f);
-                transform.right = lookTarget - transform.position;
-                transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
+
+                FaceDirection(lookTarget - transform.position);
 
                 const float smallAmountOfTime = 0.3f;
                 if ((playerTransform.position - transform.position).magnitude < restDistanceFromPlayer
@@ -80,18 +121,21 @@ public class PlayerWeapon : MonoBehaviour
         m_isConnectedToPlayer = false;
         m_lastTimeFired       = Time.time;
 
-        Vector3 newDirection = Vector3.Normalize(Input.mousePosition - playerTransform.position);
+        Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0f;
+
+        Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
 
         Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
-        transform.right = lookTarget - transform.position;
-        transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
+
+        FaceDirection(lookTarget - transform.position);
 
         m_rigidBody.AddForce(newDirection * fireSpeed, ForceMode2D.Impulse);
     }
 
     public void BeginRecall()
     {
-        if (m_isRecalling || m_isConnectedToPlayer)
+        if (m_isRecalling || m_isConnectedToPlayer || m_isBroken)
         {
             return;
         }
@@ -99,10 +143,36 @@ public class PlayerWeapon : MonoBehaviour
         StartCoroutine(RecallRoutine());
     }
 
+    public void OnBroken()
+    {
+        m_isBroken            = true;
+        m_isConnectedToPlayer = false;
+
+        m_rigidBody.velocity = Vector2.zero;
+    }
+
     IEnumerator RecallRoutine()
     {
         m_isRecalling    = true;
         gameObject.layer = m_recallLayerNum;
+
+        enemyCollider.size = new Vector2(RECALLING_COLLIDER_WIDTH, RECALLING_COLLIDER_HEIGHT);
+
+        m_rigidBody.velocity = Vector2.zero;
+
+        Vector3 startRightDirection = transform.right;
+
+        float recallWaitTimer = 0f;
+        while (recallWaitTimer < recallDelay)
+        {
+            recallWaitTimer += Time.deltaTime;
+
+            Vector3 desiredDirection = transform.position - playerTransform.position;
+
+            transform.right = Vector3.Lerp(startRightDirection, desiredDirection, recallWaitTimer / recallDelay);
+
+            yield return null;
+        }
 
         while ((playerTransform.position - transform.position).magnitude > restDistanceFromPlayer)
         {
@@ -110,13 +180,14 @@ public class PlayerWeapon : MonoBehaviour
 
             m_rigidBody.velocity = recallDirection * recallSpeed;
 
-            transform.right = transform.position - playerTransform.position;
-            transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
+            FaceDirection(transform.position - playerTransform.position);
 
             yield return null;
         }
 
         m_isRecalling = false;
+
+        enemyCollider.size = new Vector2(NORMAL_COLLIDER_WIDTH, NORMAL_COLLIDER_HEIGHT);
         OnPickedUp();
     }
 
@@ -125,5 +196,17 @@ public class PlayerWeapon : MonoBehaviour
         gameObject.layer      = m_initialLayerNum;
         m_rigidBody.velocity  = Vector2.zero;
         m_isConnectedToPlayer = true;
+    }
+
+    void OnRepaired()
+    {
+        m_isBroken = false;
+        OnPickedUp();
+    }
+
+    void FaceDirection(Vector3 a_direction)
+    {
+        transform.right = a_direction;
+        //transform.Rotate(0f, 0f, 90f); //because sprite faces down by default
     }
 }
