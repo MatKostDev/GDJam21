@@ -38,6 +38,8 @@ public class PlayerWeapon : MonoBehaviour
     bool m_isRecalling         = false;
     bool m_isBroken            = false;
 
+    bool m_isPreFiring;
+
     Rigidbody2D    m_rigidBody;
     SpriteRenderer m_renderer;
 
@@ -61,6 +63,12 @@ public class PlayerWeapon : MonoBehaviour
     public Vector3 LookDirection
     {
         get => transform.right;
+    }
+
+    public bool IsPreFiring
+    {
+        get => m_isPreFiring;
+        set => m_isPreFiring = value;
     }
 
     void Awake()
@@ -91,18 +99,25 @@ public class PlayerWeapon : MonoBehaviour
 
         if (m_isConnectedToPlayer)
         {
-            m_renderer.enabled = false;
+            if (m_isPreFiring)
+            {
+                transform.position = playerTransform.position;
+            }
+            else
+            {
+                m_renderer.enabled = false;
 
-            Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
+                Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                mousePos.z = 0f;
 
-            Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
+                Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
 
-            transform.position = playerTransform.position + (newDirection * restDistanceFromPlayer);
+                transform.position = playerTransform.position + (newDirection * restDistanceFromPlayer);
 
-            Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
+                Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
 
-            FaceDirection(lookTarget - transform.position);
+                FaceDirection(lookTarget - transform.position);
+            }
         }
         else if (!m_isRecalling)
         {
@@ -147,6 +162,8 @@ public class PlayerWeapon : MonoBehaviour
         transform.position = playerTransform.position;
 
         m_rigidBody.AddForce(newDirection * fireSpeed, ForceMode2D.Impulse);
+
+        m_isPreFiring = false;
 
         return true;
     }
