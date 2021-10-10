@@ -16,9 +16,13 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     float stoppingDistance = 0f;
 
-    PlayerTracker m_playerTracker;
+    protected PlayerTracker m_playerTracker;
 
-    NavMeshAgent m_agent;
+    protected NavMeshAgent m_agent;
+    protected NavMeshPath  m_navPath;
+
+    protected bool m_isDead      = false;
+    protected bool m_isAttacking = false;
 
     float m_randomDestinationCooldown = 3f;
     float m_randomDestinationTimer;
@@ -32,23 +36,40 @@ public abstract class Enemy : MonoBehaviour
         m_agent.updateUpAxis   = false;
 
         m_randomDestinationTimer = Random.Range(m_randomDestinationCooldown * 0.5f, m_randomDestinationCooldown);
+
+        m_navPath = new NavMeshPath();
     }
 
     protected virtual void Update()
     {
-        if (Player.IsDead)
+        if (Player.IsDead || m_isDead)
         {
-            m_agent.ResetPath();
-            m_agent.acceleration = 1000f;
-            m_agent.speed = 0f;
+            StopInstantly();
+            return;
+        }
+
+        if (m_isAttacking)
+        {
             return;
         }
 
         if (m_playerTracker.IsTracking)
         {
-            if (NavMesh.SamplePosition(m_playerTracker.PlayerPosition, out _, 100f, NavMesh.AllAreas))
+            m_agent.stoppingDistance = stoppingDistance;
+
+            Vector3 playerPosition = m_playerTracker.PlayerPosition;
+
+            const float sampleDistance = 10f;
+            //find nearest point on nav mesh from target's current position
+            if (NavMesh.SamplePosition(playerPosition, out var navHit, sampleDistance, m_agent.areaMask))
             {
-                m_agent.SetDestination(m_playerTracker.PlayerPosition);
+                playerPosition = navHit.position;
+            }
+
+            //only use new destination if it's reachable
+            if (IsPathValid(playerPosition))
+            {
+                m_agent.SetPath(m_navPath);
             }
             m_agent.speed = chaseSpeed;
         }
@@ -80,6 +101,11 @@ public abstract class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D a_other)
     {
+        if (m_isDead)
+        {
+            return;
+        }
+
         if (a_other.CompareTag("Player"))
         {
             a_other.GetComponent<Player>().TakeDamage();
@@ -115,6 +141,35 @@ public abstract class Enemy : MonoBehaviour
 
     protected void GenericTakeDamage()
     {
-        Destroy(gameObject);
+        if (m_isDead)
+        {
+            return;
+        }
+
+        m_isDead = true;
+        Destroy(gameObject, 0.5f);
+    }
+
+    protected void StopInstantly()
+    {
+        if (!m_agent)
+        {
+            return;
+        }
+        m_agent.ResetPath();
+        m_agent.acceleration = 1000f;
+        m_agent.speed        = 0f;
+    }
+
+    bool IsPathValid(Vector3 a_targetPosition)
+    {
+        m_agent.CalculatePath(a_targetPosition, m_navPath);
+
+        if (m_navPath.status == NavMeshPathStatus.PathComplete)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
