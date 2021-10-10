@@ -25,6 +25,11 @@ public class PlayerTracker : MonoBehaviour
         get => s_playerTransform.position;
     }
 
+    public Vector3 DirectionToPlayer
+    {
+        get => s_playerTransform.position - transform.position;
+    }
+
     void Awake()
     {
         s_playerTransform       = GameObject.FindGameObjectWithTag("Player").transform;
