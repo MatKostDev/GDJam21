@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     AnimationClip fireAnim;
 
+    [SerializeField]
+    AnimationClip deathAnim;
+
     Rigidbody2D m_rigidbody;
     Animator    m_animator;
 
@@ -29,6 +32,8 @@ public class Player : MonoBehaviour
     Camera m_mainCamera;
 
     static bool s_isDead;
+
+    bool m_isFiring;
 
     public static bool IsDead
     {
@@ -49,7 +54,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (s_isDead)
+        if (s_isDead || Time.timeScale == 0f)
         {
             return;
         }
@@ -57,7 +62,10 @@ public class Player : MonoBehaviour
         Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 
-        m_renderer.flipX = mousePos.x > transform.position.x;
+        if (!m_isFiring)
+        {
+            m_renderer.flipX = mousePos.x > transform.position.x;
+        }
 
         Vector2 moveAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (moveAxis.sqrMagnitude > 1f)
@@ -67,12 +75,9 @@ public class Player : MonoBehaviour
 
         m_rigidbody.velocity = moveAxis * moveSpeed;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && weapon.IsConnectedToPlayer)
         {
-            if (weapon.Fire())
-            {
-
-            }
+            OnFireWeapon();
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -88,9 +93,15 @@ public class Player : MonoBehaviour
             return;
         }
 
+        m_animator.Play(deathAnim.name);
+
         s_isDead = true;
 
         m_rigidbody.velocity = Vector2.zero;
+
+        StatTracker.IncrementPlayerDeath();
+
+        StopAllCoroutines();
 
         Invoke(nameof(RestartLevel), 2f);
     }
@@ -99,6 +110,35 @@ public class Player : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
+    }
+
+    void OnFireWeapon()
+    {
+        if (m_isFiring)
+        {
+            return;
+        }
+
+        m_isFiring = true;
+
+        StartCoroutine(FireRoutine());
+    }
+
+    IEnumerator FireRoutine()
+    {
+        m_animator.Play(fireAnim.name);
+
+        weapon.IsPreFiring = true;
+
+        yield return new WaitForSeconds(0.3f);
+
+        weapon.Fire();
+
+        yield return new WaitForSeconds(0.2f);
+
+        m_animator.Play(idleEmptyAnim.name);
+
+        m_isFiring = false;
     }
 
     void OnWeaponPickedUp()
