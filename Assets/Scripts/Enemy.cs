@@ -16,21 +16,44 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     float stoppingDistance = 0f;
 
+    [Header("Animations")]
+    [SerializeField]
+    AnimationClip chaseAnim;
+
+    [SerializeField]
+    AnimationClip idleAnim;
+
+    [SerializeField]
+    AnimationClip spottedAnim;
+
+    [SerializeField]
+    AnimationClip snoozeAnim;
+
+    //[SerializeField]
+    //AnimationClip attackAnim;
+
     protected PlayerTracker m_playerTracker;
 
     protected NavMeshAgent m_agent;
     protected NavMeshPath  m_navPath;
 
+    protected Animator       m_animator;
+    protected SpriteRenderer m_renderer;
+
     protected bool m_isDead      = false;
     protected bool m_isAttacking = false;
+    protected bool m_isSpotting;
+    protected bool m_isSnoozin;
 
-    float m_randomDestinationCooldown = 3f;
+    float m_randomDestinationCooldown = 6f;
     float m_randomDestinationTimer;
 
     protected virtual void Awake()
     {
         m_playerTracker = GetComponent<PlayerTracker>();
         m_agent         = GetComponent<NavMeshAgent>();
+        m_animator      = GetComponent<Animator>();
+        m_renderer      = GetComponent<SpriteRenderer>();
 
         m_agent.updateRotation = false;
         m_agent.updateUpAxis   = false;
@@ -38,6 +61,8 @@ public abstract class Enemy : MonoBehaviour
         m_randomDestinationTimer = Random.Range(m_randomDestinationCooldown * 0.5f, m_randomDestinationCooldown);
 
         m_navPath = new NavMeshPath();
+
+        m_playerTracker.onTargetSpotted += EnemySpotted;
     }
 
     protected virtual void Update()
@@ -48,13 +73,36 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
-        if (m_isAttacking)
+        if (m_isAttacking || m_isSpotting)
         {
+            m_renderer.flipX = m_playerTracker.PlayerPosition.x > transform.position.x;
+
+            StopInstantly();
             return;
+        }
+
+        if (m_agent.velocity.x > 0.1f)
+        {
+            m_renderer.flipX = true;
+        }
+        else if (m_agent.velocity.x < -0.1f)
+        {
+            m_renderer.flipX = false;
         }
 
         if (m_playerTracker.IsTracking)
         {
+            if (m_agent.velocity.sqrMagnitude < 0.01f)
+            {
+                m_animator.Play(idleAnim.name);
+
+                m_renderer.flipX = m_playerTracker.PlayerPosition.x > transform.position.x;
+            }
+            else
+            {
+                m_animator.Play(chaseAnim.name);
+            }
+
             m_agent.stoppingDistance = stoppingDistance;
 
             Vector3 playerPosition = m_playerTracker.PlayerPosition;
@@ -75,13 +123,25 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
+            if (m_isSnoozin && m_agent.velocity.sqrMagnitude < 0.05f 
+                || !m_isSnoozin && m_agent.velocity.sqrMagnitude < 0.001f)
+            {
+                m_animator.Play(snoozeAnim.name);
+                m_isSnoozin = true;
+            }
+            else
+            {
+                m_animator.Play(chaseAnim.name); //TODO: change to wander anim
+                m_isSnoozin = false;
+            }
+
             m_agent.speed = wanderSpeed;
 
             if (m_randomDestinationTimer >= m_randomDestinationCooldown)
             {
                 m_randomDestinationTimer = 0f;
 
-                const float maxRange = 6f;
+                const float maxRange = 3f;
                 Vector3 randomPosition = new Vector3(
                     Random.Range(-maxRange, maxRange), 
                     Random.Range(-maxRange, maxRange), 
@@ -171,5 +231,24 @@ public abstract class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    void EnemySpotted()
+    {
+        StartCoroutine(EnemySpottedRoutine());
+    }
+
+    IEnumerator EnemySpottedRoutine()
+    {
+        m_isSpotting = true;
+        StopInstantly();
+
+        m_animator.Play(spottedAnim.name);
+
+        yield return new WaitForSeconds(0.4f);
+
+        m_isSpotting = false;
+
+        m_animator.Play(idleAnim.name);
     }
 }

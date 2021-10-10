@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public UnityAction onCollected;
+
     [SerializeField]
     Transform playerTransform = null;
 
@@ -35,7 +38,10 @@ public class PlayerWeapon : MonoBehaviour
     bool m_isRecalling         = false;
     bool m_isBroken            = false;
 
-    Rigidbody2D m_rigidBody;
+    bool m_isPreFiring;
+
+    Rigidbody2D    m_rigidBody;
+    SpriteRenderer m_renderer;
 
     int m_initialLayerNum;
     int m_recallLayerNum;
@@ -59,9 +65,16 @@ public class PlayerWeapon : MonoBehaviour
         get => transform.right;
     }
 
+    public bool IsPreFiring
+    {
+        get => m_isPreFiring;
+        set => m_isPreFiring = value;
+    }
+
     void Awake()
     {
         m_rigidBody  = GetComponent<Rigidbody2D>();
+        m_renderer   = GetComponent<SpriteRenderer>();
         m_mainCamera = Camera.main;
 
         m_initialLayerNum = gameObject.layer;
@@ -72,6 +85,8 @@ public class PlayerWeapon : MonoBehaviour
 
     void Update()
     {
+        m_renderer.enabled = true;
+
         if (m_isBroken)
         {
             if ((playerTransform.position - transform.position).magnitude < restDistanceFromPlayer)
@@ -84,16 +99,25 @@ public class PlayerWeapon : MonoBehaviour
 
         if (m_isConnectedToPlayer)
         {
-            Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
+            if (m_isPreFiring)
+            {
+                transform.position = playerTransform.position;
+            }
+            else
+            {
+                m_renderer.enabled = false;
 
-            Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
+                Vector3 mousePos = m_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                mousePos.z = 0f;
 
-            transform.position = playerTransform.position + (newDirection * restDistanceFromPlayer);
+                Vector3 newDirection = Vector3.Normalize(mousePos - playerTransform.position);
 
-            Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
+                transform.position = playerTransform.position + (newDirection * restDistanceFromPlayer);
 
-            FaceDirection(lookTarget - transform.position);
+                Vector3 lookTarget = playerTransform.position + (newDirection * 100f);
+
+                FaceDirection(lookTarget - transform.position);
+            }
         }
         else if (!m_isRecalling)
         {
@@ -116,11 +140,11 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    public void Fire()
+    public bool Fire()
     {
         if (!m_isConnectedToPlayer)
         {
-            return;
+            return false;
         }
         
         m_isConnectedToPlayer = false;
@@ -135,7 +159,13 @@ public class PlayerWeapon : MonoBehaviour
 
         FaceDirection(lookTarget - transform.position);
 
+        transform.position = playerTransform.position;
+
         m_rigidBody.AddForce(newDirection * fireSpeed, ForceMode2D.Impulse);
+
+        m_isPreFiring = false;
+
+        return true;
     }
 
     public void BeginRecall()
@@ -201,6 +231,8 @@ public class PlayerWeapon : MonoBehaviour
         gameObject.layer      = m_initialLayerNum;
         m_rigidBody.velocity  = Vector2.zero;
         m_isConnectedToPlayer = true;
+
+        onCollected?.Invoke();
     }
 
     void OnRepaired()
