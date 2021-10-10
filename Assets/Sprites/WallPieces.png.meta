@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 18abd1e54f9ad0340893bc5a1ff3c046
+guid: 0fac21b987ccecc4a8953e5467b43312
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1725167031037186241
-    second: DecoPieces_0
+      213: 7800323546014690362
+    second: WallPieces_0
   - first:
-      213: 2109358738661491203
-    second: DecoPieces_1
+      213: -5368176302868631545
+    second: WallPieces_1
   - first:
-      213: 4499247674502387026
-    second: DecoPieces_2
+      213: -7530539104286449814
+    second: WallPieces_2
   - first:
-      213: -785310906300911811
-    second: DecoPieces_3
+      213: 4023887956816175897
+    second: WallPieces_3
   - first:
-      213: -8917165910696383611
-    second: DecoPieces_4
+      213: -1214735689170933594
+    second: WallPieces_4
   - first:
-      213: 8075937197222141635
-    second: DecoPieces_5
+      213: -5568736394343730806
+    second: WallPieces_5
   - first:
-      213: 5827863470520650671
-    second: DecoPieces_6
+      213: 4575707185201799715
+    second: WallPieces_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -160,7 +160,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DecoPieces_0
+      name: WallPieces_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3c225defe0504c60800000000000000
+      internalID: 7800323546014690362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallPieces_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70078d728186085b0800000000000000
+      internalID: -5368176302868631545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallPieces_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6f51d945962e7790800000000000000
+      internalID: -7530539104286449814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallPieces_3
       rect:
         serializedVersion: 2
         x: 0
@@ -174,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c0df2f364601f710800000000000000
-      internalID: 1725167031037186241
+      spriteID: 913200af6c8b7d730800000000000000
+      internalID: 4023887956816175897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DecoPieces_1
+      name: WallPieces_4
       rect:
         serializedVersion: 2
         x: 64
@@ -195,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 302c8c1d892f54d10800000000000000
-      internalID: 2109358738661491203
+      spriteID: 6a82afe9354642fe0800000000000000
+      internalID: -1214735689170933594
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DecoPieces_2
+      name: WallPieces_5
       rect:
         serializedVersion: 2
         x: 128
@@ -216,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25597330ce9807e30800000000000000
-      internalID: 4499247674502387026
+      spriteID: a813a57f0cfd7b2b0800000000000000
+      internalID: -5568736394343730806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DecoPieces_3
+      name: WallPieces_6
       rect:
         serializedVersion: 2
         x: 0
@@ -237,29 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3fa1b734e30a15f0800000000000000
-      internalID: -785310906300911811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DecoPieces_4
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58b28b179dcdf3480800000000000000
-      internalID: -8917165910696383611
+      spriteID: 322e72a117d208f30800000000000000
+      internalID: 4575707185201799715
       vertices: []
       indices: 
       edges: []
@@ -267,7 +309,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ef5faaf95a2e30b4cb2bda77f12b0843
+    spriteID: 5e5e813008c861f4cbae24984ed54ade
     internalID: 0
     vertices: []
     indices: 
