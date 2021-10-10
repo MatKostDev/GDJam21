@@ -117,6 +117,8 @@ public class Player : MonoBehaviour
         m_rigidbody.velocity = Vector2.zero;
 
         StatTracker.IncrementPlayerDeath();
+        
+        FindObjectOfType<ScreenShake>().ApplyShake(1f, 0.5f);
 
         StopAllCoroutines();
 

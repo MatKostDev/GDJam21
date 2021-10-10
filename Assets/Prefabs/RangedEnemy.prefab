@@ -59,6 +59,7 @@ MonoBehaviour:
   snoozeAnim: {fileID: 7400000, guid: 8c5b35f2fcb17d04fb36e63d36cd7e4a, type: 2}
   deathAnim: {fileID: 7400000, guid: 5827e35067018bb42a774e31b3c6e0f7, type: 2}
   dieSound: {fileID: 8300000, guid: d99e1f40cc56bfd49974ca8d50f674b9, type: 3}
+  spottedSound: {fileID: 8300000, guid: 9ed49bb89be7a4b40b3d456c749a354d, type: 3}
   projectilePrefab: {fileID: 4494687190976697057, guid: a0442e84704c3914fac9e9d3e1a3bc66, type: 3}
   attackAnim: {fileID: 7400000, guid: a78d7cc06b15c7847986fc90a3859ccd, type: 2}
   attackCooldown: 3.6
@@ -66,6 +67,7 @@ MonoBehaviour:
   firstShotWindupTime: 0.45
   delayBetweenShots: 0.25
   windDownDuration: 0.4
+  attackSound: {fileID: 8300000, guid: 415d95a40cd939b40a234ee2b8b37f21, type: 3}
 --- !u!114 &2493844640383586298
 MonoBehaviour:
   m_ObjectHideFlags: 0

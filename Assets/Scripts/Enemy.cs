@@ -39,6 +39,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     AudioClip dieSound;
 
+    [SerializeField]
+    AudioClip spottedSound;
+
     protected PlayerTracker m_playerTracker;
 
     protected NavMeshAgent m_agent;
@@ -215,6 +218,8 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<ScreenShake>().ApplyShake(5.5f, 0.35f);
+
         m_animator.Play(deathAnim.name);
         m_audioSource.PlayOneShot(dieSound);
 
@@ -258,6 +263,9 @@ public abstract class Enemy : MonoBehaviour
     {
         m_isSpotting = true;
         StopInstantly();
+
+        m_audioSource.PlayOneShot(spottedSound);
+        FindObjectOfType<ScreenShake>().ApplyShake(0.5f, 0.2f);
 
         m_animator.Play(spottedAnim.name);
 
