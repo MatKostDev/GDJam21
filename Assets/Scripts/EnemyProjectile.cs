@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
@@ -38,7 +34,7 @@ public class EnemyProjectile : MonoBehaviour
                 weapon = a_other.GetComponentInParent<PlayerWeapon>();
             }
 
-            if (weapon.IsConnectedToPlayer)
+            if (weapon.IsConnectedToPlayer || weapon.IsBroken)
             {
                 return;
             }

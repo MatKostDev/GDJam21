@@ -215,6 +215,11 @@ public class PlayerWeapon : MonoBehaviour
 
     public void OnBroken()
     {
+        if (m_isBroken)
+        {
+            return;
+        }
+
         m_isBroken            = true;
         m_isConnectedToPlayer = false;
 
