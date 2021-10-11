@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 9c576b11d104a1a4cbdcec646c835a2e, type: 3}
-    totalSpriteSurfaceArea: 720640
+    totalSpriteSurfaceArea: 724736
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -81,6 +81,7 @@ SpriteAtlas:
   - {fileID: 7309695051630029349, guid: e25068d138483be48a4206e955a0099a, type: 3}
   - {fileID: 4537063813085724358, guid: e25068d138483be48a4206e955a0099a, type: 3}
   - {fileID: -5238754705468243503, guid: e25068d138483be48a4206e955a0099a, type: 3}
+  - {fileID: 21300000, guid: f729f0d29d220f547ace4395bf0d164d, type: 3}
   - {fileID: -8236883557098786538, guid: 441cbd53f35eff24299d50d429980692, type: 3}
   - {fileID: 5391852066891535549, guid: 441cbd53f35eff24299d50d429980692, type: 3}
   - {fileID: -8145022813505142879, guid: 441cbd53f35eff24299d50d429980692, type: 3}
@@ -362,6 +363,7 @@ SpriteAtlas:
   - TilePieces_6
   - TilePieces_5
   - TilePieces_4
+  - WaterTile Shadow
   - Enemy Sprite - Snooze_13
   - Enemy Sprite - Snooze_12
   - Enemy Sprite - Snooze_11

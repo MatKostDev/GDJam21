@@ -20,7 +20,7 @@ public class MenuController : MonoBehaviour {
 
         yield return new WaitForSeconds(1.0f);
 
-        var asyncLoad = SceneManager.LoadSceneAsync("Gameplay");
+        var asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
 
 		while (!asyncLoad.isDone) {
 			yield return null;

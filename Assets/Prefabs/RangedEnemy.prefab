@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseSpeed: 1.2
   wanderSpeed: 1
-  stoppingDistance: 5
+  stoppingDistance: 3
   wanderAnim: {fileID: 7400000, guid: 1d9859f1d379d9d42b44886e553c9caf, type: 2}
   chaseAnim: {fileID: 7400000, guid: 7bda797061032da4b923d39d699a7f8a, type: 2}
   idleAnim: {fileID: 7400000, guid: 4bf02dfa414838f4196ea01d2b4d585b, type: 2}
@@ -63,7 +63,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4494687190976697057, guid: a0442e84704c3914fac9e9d3e1a3bc66, type: 3}
   attackAnim: {fileID: 7400000, guid: a78d7cc06b15c7847986fc90a3859ccd, type: 2}
   attackCooldown: 3.6
-  targetShotLeadAmount: 2.5
+  targetShotLeadAmount: 1.8
   firstShotWindupTime: 0.45
   delayBetweenShots: 0.25
   windDownDuration: 0.4
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f30d29a95d396428962e11984d7b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
+  detectionRange: 3
 --- !u!212 &2493844640383586299
 SpriteRenderer:
   m_ObjectHideFlags: 0
