@@ -190,7 +190,7 @@ public abstract class Enemy : MonoBehaviour
                 weapon = a_other.GetComponentInParent<PlayerWeapon>();
             }
 
-            if (weapon.IsConnectedToPlayer)
+            if (weapon.IsConnectedToPlayer || weapon.IsBroken)
             {
                 return;
             }

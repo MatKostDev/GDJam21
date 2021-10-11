@@ -87,6 +87,11 @@ public class PlayerWeapon : MonoBehaviour
         set => m_isPreFiring = value;
     }
 
+    public bool IsBroken
+    {
+        get => m_isBroken;
+    }
+
     void Awake()
     {
         m_rigidBody   = GetComponent<Rigidbody2D>();
