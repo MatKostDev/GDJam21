@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerWeapon
   - MusicPlayer
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

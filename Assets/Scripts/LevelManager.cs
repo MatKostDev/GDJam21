@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
 {
     public Scene winScene;
 
-    GameObject pauseMenu;
+    public GameObject pauseMenu;
 	
 	public UnityEvent onPreLevelLoadEvent;
 	public UnityEvent onPostLevelLoadEvent;
@@ -24,8 +24,6 @@ public class LevelManager : MonoBehaviour
 
 	private void Start() 
     {
-		pauseMenu = GameObject.Find("PauseMenu");
-
         m_levelTracker = FindObjectOfType<LevelTracker>();
     }
 

@@ -42,10 +42,10 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField]
     AudioClip repairSound;
 
-    const float NORMAL_COLLIDER_WIDTH  = 0.05f;
-    const float NORMAL_COLLIDER_HEIGHT = 0.25f;
+    const float NORMAL_COLLIDER_WIDTH  = 0.22f;
+    const float NORMAL_COLLIDER_HEIGHT = 0.05f;
 
-    const float RECALLING_COLLIDER_WIDTH  = 0.3f;
+    const float RECALLING_COLLIDER_WIDTH  = 0.22f;
     const float RECALLING_COLLIDER_HEIGHT = 0.25f;
 
     bool m_isConnectedToPlayer = true;
