@@ -18,6 +18,9 @@ public abstract class Enemy : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField]
+    AnimationClip wanderAnim;
+
+    [SerializeField]
     AnimationClip chaseAnim;
 
     [SerializeField]
@@ -29,8 +32,15 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     AnimationClip snoozeAnim;
 
-    //[SerializeField]
-    //AnimationClip attackAnim;
+    [SerializeField]
+    AnimationClip deathAnim;
+
+    [Header("Sounds")]
+    [SerializeField]
+    AudioClip dieSound;
+
+    [SerializeField]
+    AudioClip spottedSound;
 
     protected PlayerTracker m_playerTracker;
 
@@ -39,6 +49,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected Animator       m_animator;
     protected SpriteRenderer m_renderer;
+    protected AudioSource    m_audioSource;
 
     protected bool m_isDead      = false;
     protected bool m_isAttacking = false;
@@ -54,6 +65,7 @@ public abstract class Enemy : MonoBehaviour
         m_agent         = GetComponent<NavMeshAgent>();
         m_animator      = GetComponent<Animator>();
         m_renderer      = GetComponent<SpriteRenderer>();
+        m_audioSource   = GetComponent<AudioSource>();
 
         m_agent.updateRotation = false;
         m_agent.updateUpAxis   = false;
@@ -131,7 +143,7 @@ public abstract class Enemy : MonoBehaviour
             }
             else
             {
-                m_animator.Play(chaseAnim.name); //TODO: change to wander anim
+                m_animator.Play(wanderAnim.name);
                 m_isSnoozin = false;
             }
 
@@ -206,8 +218,17 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<ScreenShake>().ApplyShake(5.5f, 0.35f);
+
+        m_animator.Play(deathAnim.name);
+        m_audioSource.PlayOneShot(dieSound);
+
+        StatTracker.IncrementEnemiesKilled();
+
         m_isDead = true;
-        Destroy(gameObject, 0.5f);
+
+        StopAllCoroutines();
+        Destroy(gameObject, 2f);
     }
 
     protected void StopInstantly()
@@ -242,6 +263,9 @@ public abstract class Enemy : MonoBehaviour
     {
         m_isSpotting = true;
         StopInstantly();
+
+        m_audioSource.PlayOneShot(spottedSound);
+        FindObjectOfType<ScreenShake>().ApplyShake(0.5f, 0.2f);
 
         m_animator.Play(spottedAnim.name);
 

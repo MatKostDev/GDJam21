@@ -16,6 +16,8 @@ public class EnemyProjectile : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody2D>();
 
         m_rigidbody.velocity = a_fireDirection * moveSpeed;
+
+        transform.right = transform.position + a_fireDirection;
     }
 
     void OnTriggerEnter2D(Collider2D a_other)
