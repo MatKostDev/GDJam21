@@ -27,6 +27,9 @@ public class RangedEnemy : Enemy
     [SerializeField]
     float windDownDuration = 0.3f;
 
+    [SerializeField]
+    AudioClip attackSound;
+
     float m_lastTimeAttacked;
 
     void Start()
@@ -92,6 +95,9 @@ public class RangedEnemy : Enemy
         Vector3 targetRightDirection = new Vector3(targetDirection.y, -targetDirection.x, 0f).normalized;
 
         {
+            m_audioSource.PlayOneShot(attackSound);
+            FindObjectOfType<ScreenShake>().ApplyShake(1.5f, 0.2f);
+
             //fire to the right of the target
             Vector3 firstShotTargetPos = targetPosition + (targetShotLeadAmount * targetRightDirection);
             Vector3 firstShotDirection = Vector3.Normalize(firstShotTargetPos - transform.position);
@@ -105,6 +111,8 @@ public class RangedEnemy : Enemy
 
         {
             m_animator.Play(attackAnim.name, -1, 0.5f);
+            m_audioSource.PlayOneShot(attackSound);
+            FindObjectOfType<ScreenShake>().ApplyShake(1.5f, 0.2f);
 
             //fire at the target
             var newProjectileObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
@@ -116,6 +124,8 @@ public class RangedEnemy : Enemy
 
         {
             m_animator.Play(attackAnim.name, -1, 0.5f);
+            m_audioSource.PlayOneShot(attackSound);
+            FindObjectOfType<ScreenShake>().ApplyShake(1.5f, 0.2f);
 
             //fire to the left of the target
             Vector3 thirdShotTargetPos = targetPosition + (targetShotLeadAmount * -targetRightDirection);

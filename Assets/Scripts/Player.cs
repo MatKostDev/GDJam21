@@ -24,8 +24,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     AnimationClip deathAnim;
 
+    [Header("Sounds")]
+    [SerializeField]
+    AudioClip fireSound;
+
+    [SerializeField]
+    AudioClip recallSound;
+
+    [SerializeField]
+    AudioClip dieSound;
+
     Rigidbody2D m_rigidbody;
     Animator    m_animator;
+    AudioSource m_audioSource;
 
     SpriteRenderer m_renderer;
 
@@ -42,10 +53,11 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        m_rigidbody  = GetComponent<Rigidbody2D>();
-        m_animator   = GetComponent<Animator>();
-        m_renderer   = GetComponent<SpriteRenderer>();
-        m_mainCamera = Camera.main;
+        m_rigidbody   = GetComponent<Rigidbody2D>();
+        m_animator    = GetComponent<Animator>();
+        m_renderer    = GetComponent<SpriteRenderer>();
+        m_audioSource = GetComponent<AudioSource>();
+        m_mainCamera  = Camera.main;
 
         s_isDead = false;
 
@@ -82,7 +94,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
         {
-            weapon.BeginRecall();
+            if (weapon.BeginRecall())
+            {
+                m_audioSource.PlayOneShot(recallSound);
+            }
         }
     }
 
@@ -95,11 +110,15 @@ public class Player : MonoBehaviour
 
         m_animator.Play(deathAnim.name);
 
+        m_audioSource.PlayOneShot(dieSound);
+
         s_isDead = true;
 
         m_rigidbody.velocity = Vector2.zero;
 
         StatTracker.IncrementPlayerDeath();
+        
+        FindObjectOfType<ScreenShake>().ApplyShake(1f, 0.5f);
 
         StopAllCoroutines();
 
@@ -127,6 +146,8 @@ public class Player : MonoBehaviour
     IEnumerator FireRoutine()
     {
         m_animator.Play(fireAnim.name);
+
+        m_audioSource.PlayOneShot(fireSound);
 
         weapon.IsPreFiring = true;
 
